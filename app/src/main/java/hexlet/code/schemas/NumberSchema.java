@@ -10,12 +10,12 @@ public class NumberSchema extends BaseSchema<Integer> {
     }
 
     public NumberSchema positive() {
-        addValidation("positive", num -> num > 0);
+        addValidation("positive", num -> num == null || num > 0);
         return this;
     }
 
     public NumberSchema range(int from, int to) {
-        addValidation("range", num -> num >= from && num <= to);
+        addValidation("range", num -> num != null && num >= from && num <= to);
         return this;
     }
 }

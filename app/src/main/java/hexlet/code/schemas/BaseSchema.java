@@ -15,6 +15,6 @@ public abstract class BaseSchema<T> {
     public boolean isValid(T testValue) {
 
         return validations.entrySet().stream()
-                .allMatch(entry -> testValue != null && entry.getValue().test(testValue));
+                .allMatch(entry -> entry.getValue().test(testValue));
     }
 }

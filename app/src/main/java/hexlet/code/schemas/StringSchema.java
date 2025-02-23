@@ -8,12 +8,12 @@ public class StringSchema extends BaseSchema<String> {
     }
 
     public StringSchema minLength(int min) {
-        addValidation("minLength", text -> text.length() >= min);
+        addValidation("minLength", text -> text != null && text.length() >= min);
         return this;
     }
 
     public StringSchema contains(String test) {
-        addValidation("contains", text -> text.contains(test));
+        addValidation("contains", text -> text != null && text.contains(test));
         return this;
     }
 }

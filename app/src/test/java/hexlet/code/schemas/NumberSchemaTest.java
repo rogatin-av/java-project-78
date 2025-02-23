@@ -29,8 +29,9 @@ class NumberSchemaTest {
     }
 
     @ParameterizedTest
+    @NullSource
     @ValueSource(ints = { 5, 1 })
-    void positiveTrue(int testValue) {
+    void positiveTrue(Integer testValue) {
         NumberSchema schema = new NumberSchema();
         schema.positive();
 
@@ -38,7 +39,6 @@ class NumberSchemaTest {
     }
 
     @ParameterizedTest
-    @NullSource
     @ValueSource(ints = { 0, -5 })
     void positiveFalse(Integer testValue) {
         NumberSchema schema = new NumberSchema();
