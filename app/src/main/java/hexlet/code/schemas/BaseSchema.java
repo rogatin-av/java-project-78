@@ -8,11 +8,11 @@ public abstract class BaseSchema<T> {
 
     private final Map<String, Predicate<T>> validations = new HashMap<>();
 
-    protected void addValidation(String name, Predicate<T> fun) {
+    protected final void addValidation(String name, Predicate<T> fun) {
         validations.put(name, fun);
     }
 
-    public boolean isValid(T testValue) {
+    public final boolean isValid(T testValue) {
 
         return validations.entrySet().stream()
                 .allMatch(entry -> entry.getValue().test(testValue));
