@@ -1,23 +1,35 @@
 package hexlet.code.schemas;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StringSchemaTest {
+
+    @Test
+    void checkNull() {
+        StringSchema schema = new StringSchema();
+
+        boolean expected = true;
+        boolean actual = schema.isValid(null);
+
+        assertEquals(expected, actual);
+    }
 
     @ParameterizedTest
     @ValueSource(strings = { "B", "hello" })
     void requiredTrue(String testValue) {
         StringSchema schema = new StringSchema();
-        assertTrue(schema.isValid(null));
         schema.required();
 
-        assertTrue(schema.isValid(testValue));
+        boolean expected = true;
+        boolean actual = schema.isValid(testValue);
+
+        assertEquals(expected, actual);
     }
 
     @ParameterizedTest
@@ -28,7 +40,10 @@ class StringSchemaTest {
         StringSchema schema = new StringSchema();
         schema.required();
 
-        assertFalse(schema.isValid(testValue));
+        boolean expected = false;
+        boolean actual = schema.isValid(testValue);
+
+        assertEquals(expected, actual);
     }
 
     @ParameterizedTest
@@ -37,7 +52,10 @@ class StringSchemaTest {
         StringSchema schema = new StringSchema();
         schema.minLength(4);
 
-        assertTrue(schema.isValid(testValue));
+        boolean expected = true;
+        boolean actual = schema.isValid(testValue);
+
+        assertEquals(expected, actual);
     }
 
     @ParameterizedTest
@@ -48,7 +66,10 @@ class StringSchemaTest {
         StringSchema schema = new StringSchema();
         schema.minLength(4);
 
-        assertFalse(schema.isValid(testValue));
+        boolean expected = false;
+        boolean actual = schema.isValid(testValue);
+
+        assertEquals(expected, actual);
     }
 
     @ParameterizedTest
@@ -57,7 +78,10 @@ class StringSchemaTest {
         StringSchema schema = new StringSchema();
         schema.contains("tex");
 
-        assertTrue(schema.isValid(testValue));
+        boolean expected = true;
+        boolean actual = schema.isValid(testValue);
+
+        assertEquals(expected, actual);
     }
 
     @ParameterizedTest
@@ -68,7 +92,10 @@ class StringSchemaTest {
         StringSchema schema = new StringSchema();
         schema.contains("tex");
 
-        assertFalse(schema.isValid(testValue));
+        boolean expected = false;
+        boolean actual = schema.isValid(testValue);
+
+        assertEquals(expected, actual);
     }
 
     @ParameterizedTest
@@ -77,7 +104,10 @@ class StringSchemaTest {
         StringSchema schema = new StringSchema();
         schema.required().minLength(5).contains("ll").minLength(10);
 
-        assertTrue(schema.isValid(testValue));
+        boolean expected = true;
+        boolean actual = schema.isValid(testValue);
+
+        assertEquals(expected, actual);
     }
 
     @ParameterizedTest
@@ -88,6 +118,9 @@ class StringSchemaTest {
         StringSchema schema = new StringSchema();
         schema.required().minLength(5).contains("lo").minLength(10);
 
-        assertFalse(schema.isValid(testValue));
+        boolean expected = false;
+        boolean actual = schema.isValid(testValue);
+
+        assertEquals(expected, actual);
     }
 }

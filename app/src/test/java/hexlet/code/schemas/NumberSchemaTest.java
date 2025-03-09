@@ -5,19 +5,30 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class NumberSchemaTest {
+
+    @Test
+    void checkNull() {
+        NumberSchema schema = new NumberSchema();
+
+        boolean expected = true;
+        boolean actual = schema.isValid(null);
+
+        assertEquals(expected, actual);
+    }
 
     @ParameterizedTest
     @ValueSource(ints = { 5, 0 })
     void requiredTrue(int testValue) {
         NumberSchema schema = new NumberSchema();
-        assertTrue(schema.isValid(null));
         schema.required();
 
-        assertTrue(schema.isValid(testValue));
+        boolean expected = true;
+        boolean actual = schema.isValid(testValue);
+
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -25,7 +36,10 @@ class NumberSchemaTest {
         NumberSchema schema = new NumberSchema();
         schema.required();
 
-        assertFalse(schema.isValid(null));
+        boolean expected = false;
+        boolean actual = schema.isValid(null);
+
+        assertEquals(expected, actual);
     }
 
     @ParameterizedTest
@@ -35,7 +49,10 @@ class NumberSchemaTest {
         NumberSchema schema = new NumberSchema();
         schema.positive();
 
-        assertTrue(schema.isValid(testValue));
+        boolean expected = true;
+        boolean actual = schema.isValid(testValue);
+
+        assertEquals(expected, actual);
     }
 
     @ParameterizedTest
@@ -44,7 +61,10 @@ class NumberSchemaTest {
         NumberSchema schema = new NumberSchema();
         schema.positive();
 
-        assertFalse(schema.isValid(testValue));
+        boolean expected = false;
+        boolean actual = schema.isValid(testValue);
+
+        assertEquals(expected, actual);
     }
 
     @ParameterizedTest
@@ -53,7 +73,10 @@ class NumberSchemaTest {
         NumberSchema schema = new NumberSchema();
         schema.range(2, 7);
 
-        assertTrue(schema.isValid(testValue));
+        boolean expected = true;
+        boolean actual = schema.isValid(testValue);
+
+        assertEquals(expected, actual);
     }
 
     @ParameterizedTest
@@ -63,7 +86,10 @@ class NumberSchemaTest {
         NumberSchema schema = new NumberSchema();
         schema.range(2, 7);
 
-        assertFalse(schema.isValid(testValue));
+        boolean expected = false;
+        boolean actual = schema.isValid(testValue);
+
+        assertEquals(expected, actual);
     }
 
     @ParameterizedTest
@@ -72,7 +98,10 @@ class NumberSchemaTest {
         NumberSchema schema = new NumberSchema();
         schema.range(7, 9).required().positive().range(2, 5);
 
-        assertTrue(schema.isValid(testValue));
+        boolean expected = true;
+        boolean actual = schema.isValid(testValue);
+
+        assertEquals(expected, actual);
     }
 
     @ParameterizedTest
@@ -82,6 +111,9 @@ class NumberSchemaTest {
         NumberSchema schema = new NumberSchema();
         schema.range(7, 9).required().positive().range(2, 5);
 
-        assertFalse(schema.isValid(testValue));
+        boolean expected = false;
+        boolean actual = schema.isValid(testValue);
+
+        assertEquals(expected, actual);
     }
 }
